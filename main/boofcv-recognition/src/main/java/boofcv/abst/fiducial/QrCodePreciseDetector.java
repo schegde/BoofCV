@@ -45,7 +45,7 @@ public class QrCodePreciseDetector<T extends ImageGray<T>> implements QrCodeDete
 	BinaryContourHelper contourHelper;
 
 	// runtime profiling
-	boolean profiler = false;
+	boolean profiler = true;
 	protected MovingAverage milliBinary = new MovingAverage(0.8);
 	protected MovingAverage milliDecoding = new MovingAverage(0.8);
 
@@ -70,7 +70,11 @@ public class QrCodePreciseDetector<T extends ImageGray<T>> implements QrCodeDete
 		if( profiler )
 			System.out.printf("qrcode: binary %5.2f ",milliBinary.getAverage());
 
+		long timea = System.currentTimeMillis();
 		detectPositionPatterns.process(gray,contourHelper.padded());
+		long timeb = System.currentTimeMillis();
+		System.out.println(" process: " + (timeb-timea));
+
 		time0 = System.nanoTime();
 		decoder.process(detectPositionPatterns.getPositionPatterns(),gray);
 		time1 = System.nanoTime();

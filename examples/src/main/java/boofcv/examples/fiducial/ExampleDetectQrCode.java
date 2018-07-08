@@ -41,13 +41,17 @@ import java.util.List;
  */
 public class ExampleDetectQrCode {
 	public static void main(String[] args) {
+		long t1 = System.currentTimeMillis();
 		BufferedImage input = UtilImageIO.loadImage(UtilIO.pathExample("fiducial/qrcode/image01.jpg"));
 		GrayU8 gray = ConvertBufferedImage.convertFrom(input,(GrayU8)null);
 
 		QrCodeDetector<GrayU8> detector = FactoryFiducial.qrcode(null,GrayU8.class);
 
+		long t2 = System.currentTimeMillis();
+
 		detector.process(gray);
 
+		long t3 = System.currentTimeMillis();
 		// Get's a list of all the qr codes it could successfully detect and decode
 		List<QrCode> detections = detector.getDetections();
 
@@ -74,5 +78,13 @@ public class ExampleDetectQrCode {
 		}
 
 		ShowImages.showWindow(input,"Example QR Codes", true);
+
+
+		long t4 = System.currentTimeMillis();
+
+		System.out.println("Main code took " + (t4 - t1) + " milliseconds");
+		System.out.println("Preprocessing took " + (t2 - t1) + " milliseconds");
+		System.out.println("Processing took " + (t3 - t2) + " milliseconds");
+		System.out.println("Visualization took " + (t4 - t3) + " milliseconds");
 	}
 }

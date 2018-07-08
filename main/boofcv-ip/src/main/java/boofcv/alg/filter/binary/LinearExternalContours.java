@@ -77,6 +77,8 @@ public class LinearExternalContours {
 	 */
 	public void process( GrayU8 binary , int adjustX , int adjustY ) {
 		// Initialize data structures
+		long startTime = System.currentTimeMillis();
+
 		this.adjustX = adjustX;
 		this.adjustY = adjustY;
 		storagePoints.reset();
@@ -131,6 +133,8 @@ public class LinearExternalContours {
 				}
 			}
 		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("inner processing took " + (endTime - startTime) + " milliseconds");
 	}
 
 
@@ -162,12 +166,14 @@ public class LinearExternalContours {
 		public Tracer(ConnectRule rule) {
 			super(rule);
 		}
+		private int n = 0;
 
 		public boolean trace( int initialX , int initialY , boolean external )
 		{
 			// TODO determine if it's ambigous or not. The number of times this test is
 			// done could be reduced I think.
 			// verify that it's external. If there are ones above it then it can't possibly be external
+
 			if( external ) {
 				indexBinary = binary.getIndex(initialX,initialY);
 				if( rule == ConnectRule.EIGHT ) {
