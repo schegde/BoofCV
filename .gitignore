@@ -4,5 +4,7 @@
 *.jar
 **/*.iml
 **/*.ipr
+**/*.iws
+build/
 .DS_Store
 BoofVersion.java
