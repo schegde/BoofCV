@@ -73,7 +73,7 @@ public class QrCodePreciseDetector<T extends ImageGray<T>> implements QrCodeDete
 		long timea = System.currentTimeMillis();
 		detectPositionPatterns.process(gray,contourHelper.padded());
 		long timeb = System.currentTimeMillis();
-		System.out.println(" process: " + (timeb-timea));
+		System.out.println(" Detect position patterns time: " + (timeb-timea));
 
 		time0 = System.nanoTime();
 		decoder.process(detectPositionPatterns.getPositionPatterns(),gray);
