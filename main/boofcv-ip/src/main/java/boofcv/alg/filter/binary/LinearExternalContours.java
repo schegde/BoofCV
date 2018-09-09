@@ -77,7 +77,7 @@ public class LinearExternalContours {
 	 */
 	public void process( GrayU8 binary , int adjustX , int adjustY ) {
 		// Initialize data structures
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 
 		this.adjustX = adjustX;
 		this.adjustY = adjustY;
@@ -133,8 +133,8 @@ public class LinearExternalContours {
 				}
 			}
 		}
-		long endTime = System.currentTimeMillis();
-		System.out.println("inner processing took " + (endTime - startTime) + " milliseconds");
+		long endTime = System.nanoTime();
+		System.out.println("inner processing took " + ((endTime - startTime)*1e-6) + " milliseconds");
 	}
 
 
